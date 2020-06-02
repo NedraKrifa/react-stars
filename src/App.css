@@ -1,0 +1,8 @@
+.App{
+  text-align: center;
+  background-image: linear-gradient(to top, #707782, #3f9eb9, #00c8be, #42ea85, #ddfc00);
+  height: 450px;
+  padding: 150px;
+  color: white;
+}
+
