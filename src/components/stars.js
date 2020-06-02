@@ -2,61 +2,40 @@ import React, { Component } from "react";
 
 export class stars extends Component {
   getStyleStar = (id) => {
-    const rate = this.props.edit ? this.props.varRate : this.props.rate;
-    const rateList = Array(rate)
-      .fill(0)
-      .map((e, i) => rate - i);
+    const rate = this.props.rate;
+    const rateList = this.getArray(rate);
     return {
-      paddingLeft: "40px",
-      color: rateList.includes(id) ? "yellow" : "gray",
+      color: this.props.edit
+        ? "gray"
+        : rateList.includes(id)
+        ? "yellow"
+        : "gray",
     };
   };
-  changeRating = (id) => {
-    this.props.onChange(Number(id));
+  getArray = (n) => {
+    return Array(n)
+      .fill(0)
+      .map((e, i) => n - i)
+      .reverse();
   };
   render() {
     return (
-      <div style={starsStyle}>
-        <i
-          style={this.getStyleStar(1)}
-          className="fas fa-star favori-btn"
-          onClick={(e) => this.changeRating(e.target.id)}
-          id="1"
-        ></i>
-        <i
-          style={this.getStyleStar(2)}
-          className="fas fa-star favori-btn"
-          onClick={(e) => this.changeRating(e.target.id)}
-          id="2"
-        ></i>
-        <i
-          style={this.getStyleStar(3)}
-          className="fas fa-star favori-btn"
-          onClick={(e) => this.changeRating(e.target.id)}
-          id="3"
-        ></i>
-        <i
-          style={this.getStyleStar(4)}
-          className="fas fa-star favori-btn"
-          onClick={(e) => this.changeRating(e.target.id)}
-          id="4"
-        ></i>
-        <i
-          style={this.getStyleStar(5)}
-          className="fas fa-star favori-btn"
-          onClick={(e) => this.changeRating(e.target.id)}
-          id="5"
-        ></i>
+      <div className="stars">
+        {this.getArray(this.props.sizeOfStars).map((el) => {
+          return (
+            <i
+              className="star"
+              style={this.getStyleStar(el)}
+              className="fas fa-star favori-btn"
+              onClick={(e) => this.props.onChange(e.target.id)}
+              id={el}
+              key={el}
+            />
+          );
+        })}
       </div>
     );
   }
 }
-const starsStyle = {
-  fontSize: "50px",
-  display: "flex",
-  justifyContent: "center",
-  marginTop: "50px",
-  color: "gray",
-};
 
 export default stars;
